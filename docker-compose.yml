@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ecommerce_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - ecommerce-network
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_DB: ecommerce_pg
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-network
+
+  coupon-thrift-service:
+    build:
+      context: ./coupon-thrift-service
+    container_name: coupon-thrift-service
+    ports:
+      - "9090:9090"
+    networks:
+      - ecommerce-network
+    depends_on:
+      - mysql
+
+  ecommerce:
+    build:
+      context: ./ecommerce
+    container_name: ecommerce
+    ports:
+      - "8080:8080"
+    networks:
+      - ecommerce-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/ecommerce_db?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+
+      - PG_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ecommerce_pg
+      - PG_DATASOURCE_USERNAME=postgres
+      - PG_DATASOURCE_PASSWORD=password
+
+      - THRIFT_HOST=coupon-thrift-service
+      - THRIFT_PORT=9090
+    depends_on:
+      - mysql
+      - postgres
+      - coupon-thrift-service
+
+volumes:
+  mysql_data:
+  postgres_data:
+
+networks:
+  ecommerce-network:
