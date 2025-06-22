@@ -1,0 +1,9 @@
+[submodule "ecommerce"]
+	path = ecommerce
+	url = git@github.com:qingfan007/ecommerce.git
+[submodule "coupon-thrift-service"]
+	path = coupon-thrift-service
+	url = git@github.com:qingfan007/coupon-thrift-service.git
+[submodule "coupon-thrift-api"]
+	path = coupon-thrift-api
+	url = git@github.com:qingfan007/coupon-thrift-api.git
