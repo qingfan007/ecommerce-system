@@ -4,9 +4,23 @@ Supports unified Docker Compose deployment for easy local development and testin
 
 ## 🔧 Tech Stack
 - Java 17, Spring Boot 3.x
+- Spring Security (JWT)
 - Apache Thrift for RPC microservices
 - MySQL & PostgreSQL databases
 - Docker & Docker Compose
+
+## ✅ Features
+- RESTful API (Spring Boot)
+- JWT-based authentication and authorization
+- MySQL Module: User / Product / Order
+- PostgreSQL Module: PgReview demo (separate datasource)
+- Pagination support for listing
+- Thrift Module: CouponService (via RPC, independent Docker service)
+- Swagger/OpenAPI Docs
+- Dockerized: docker-compose for MySQL & PostgreSQL
+- Clean project structure (multi-package separation)
+- Postman collection provided
+- External API Integration: Dynamic weather query by coordinates (Open-Meteo)
 
 ## 📁 Project Structure
 ```bash
