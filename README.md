@@ -12,7 +12,7 @@ Supports unified Docker Compose deployment for easy local development and testin
 ## ✅ Features
 - RESTful API (Spring Boot)
 - JWT-based authentication and authorization
-- MySQL Module: User / Product / Order
+- MySQL Module: User & Product & Order
 - PostgreSQL Module: PgReview demo (separate datasource)
 - Pagination support for listing
 - Thrift Module: CouponService (via RPC, independent Docker service)
