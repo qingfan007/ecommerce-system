@@ -1,9 +1,6 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: ecommerce_db
@@ -16,7 +13,6 @@ services:
 
   postgres:
     image: postgres:13
-    container_name: postgres
     environment:
       POSTGRES_DB: ecommerce_pg
       POSTGRES_USER: postgres
@@ -30,8 +26,8 @@ services:
 
   coupon-thrift-service:
     build:
-      context: ./coupon-thrift-service
-    container_name: coupon-thrift-service
+      context: .
+      dockerfile: ./coupon-thrift-service/Dockerfile
     ports:
       - "9090:9090"
     networks:
@@ -41,14 +37,14 @@ services:
 
   ecommerce:
     build:
-      context: ./ecommerce
-    container_name: ecommerce
+      context: .     # change to all root path
+      dockerfile: ./ecommerce/Dockerfile
     ports:
       - "8080:8080"
     networks:
       - ecommerce-network
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/ecommerce_db?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/ecommerce_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
 
@@ -58,6 +54,8 @@ services:
 
       - THRIFT_HOST=coupon-thrift-service
       - THRIFT_PORT=9090
+
+      - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - mysql
       - postgres
