@@ -1,4 +1,7 @@
-# ecommerce-system
+# 🛒 E-commerce Backend System – Java Spring Boot + Microservices
+
+This is a demo of how I can structure and deliver a backend system using best practices.
+
 A modular e-commerce backend system integrating multiple microservices including ecommerce (Spring Boot backend), coupon-thrift-service (Thrift microservice), and shared API modules.
 Supports unified Docker Compose deployment for easy local development and testing.
 
@@ -48,6 +51,8 @@ cd ecommerce-system
 docker-compose up -d --build
 
 ```
+Then visit Swagger UI: http://localhost:8080/swagger-ui/index.html
+
 ### Check status
 ```bash
 docker-compose ps
@@ -69,17 +74,5 @@ docker-compose down
 - Database initialization and migrations handled by Spring Boot JPA (or Flyway if added)
 - You can modify configurations in docker-compose.yml as needed
 
-## 🔄 Thrift Service Host Configuration
-The Spring Boot service connects to the Thrift microservice.
-Please update coupon.thrift.host in application.yml based on your running method:
-```bash
-
-Local run:
-coupon.thrift.host: localhost
-
-Docker Compose:
-coupon.thrift.host: coupon-thrift-service (Docker service name)
-
-```
 
 
