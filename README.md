@@ -24,6 +24,7 @@ Supports unified Docker Compose deployment for easy local development and testin
 - Clean project structure (multi-package separation)
 - Postman collection provided
 - External API Integration: Dynamic weather query by coordinates (Open-Meteo)
+- XML Data Import
 
 ## 📁 Project Structure
 ```bash
